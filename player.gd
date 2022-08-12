@@ -7,8 +7,8 @@ export(int) var ACCELERATION=10
 export(int) var FRICTION=10
 export(int) var GRAVITY=4
 export(int) var ADDITIONAL_FALL_GRAVITY=4
-var velocity=Vector2.ZERO
 
+var velocity=Vector2.ZERO
 
 func _physics_process(delta):
 	apply_gravity()
@@ -26,17 +26,14 @@ func _physics_process(delta):
 			$AnimatedSprite.flip_h=false
 
 	if is_on_floor():
-
 		if Input.is_action_just_pressed("ui_up"):
 			velocity.y=JUMP_FORCE
 	else:
 		$AnimatedSprite.animation="jump"
 		if Input.is_action_just_released("ui_up") and velocity.y<-70:
 			velocity.y=JUMP_RELEASE_FORCE
-
 		if velocity.y>0 :
 			velocity.y+=ADDITIONAL_FALL_GRAVITY
-
 	var was_in_air=not is_on_floor()
 	velocity=move_and_slide(velocity,Vector2.UP)
 	var just_landed=is_on_floor()and was_in_air
@@ -49,7 +46,6 @@ func apply_gravity():
 
 func apply_friction():
 	velocity.x=move_toward(velocity.x,0,FRICTION)
-
 
 func apply_acceleration(amount):
 	velocity.x=move_toward(velocity.x,MAX_SPEED*amount,ACCELERATION)
