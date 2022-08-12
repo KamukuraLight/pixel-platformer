@@ -12,11 +12,9 @@ var velocity=Vector2.ZERO
 
 func _physics_process(delta):
 	apply_gravity()
-	var input=Vector2.ZERO
-	input.x=Input.get_action_strength("ui_right")-Input.get_action_strength("ui_left")
-	
-	
-	if input.x==0:
+	var input = Vector2.ZERO
+	input.x = Input.get_action_strength("ui_right")-Input.get_action_strength("ui_left")
+	if input.x == 0:
 		apply_friction()
 		$AnimatedSprite.animation="idle"
 	else:
@@ -26,7 +24,7 @@ func _physics_process(delta):
 			$AnimatedSprite.flip_h=true
 		elif input.x<0:
 			$AnimatedSprite.flip_h=false
- 
+
 	if is_on_floor():
 
 		if Input.is_action_just_pressed("ui_up"):
@@ -35,7 +33,7 @@ func _physics_process(delta):
 		$AnimatedSprite.animation="jump"
 		if Input.is_action_just_released("ui_up") and velocity.y<-70:
 			velocity.y=JUMP_RELEASE_FORCE
-			
+
 		if velocity.y>0 :
 			velocity.y+=ADDITIONAL_FALL_GRAVITY
 
@@ -45,7 +43,7 @@ func _physics_process(delta):
 	if just_landed:
 		$AnimatedSprite.animation="run"
 		$AnimatedSprite.frame=1
-	
+
 func apply_gravity():
 	velocity.y+=GRAVITY
 
@@ -55,5 +53,3 @@ func apply_friction():
 
 func apply_acceleration(amount):
 	velocity.x=move_toward(velocity.x,MAX_SPEED*amount,ACCELERATION)
-
-		
